@@ -6,12 +6,12 @@ import { Testimonials } from "@/components/home/testimonials";
 
 export default function Home() {
   return (
-    <>
+    <div className="container">
       <Navbar />
       <PromoBanner />
       <ProductListing />
       <Testimonials />
       <Footer />
-    </>
+    </div>
   );
 }
