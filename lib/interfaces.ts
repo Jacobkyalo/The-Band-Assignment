@@ -9,6 +9,7 @@ export interface Product {
   price: number;
   category: string;
   image: string;
+  description: string;
 }
 
 export interface Testimonial {
@@ -16,4 +17,26 @@ export interface Testimonial {
   name: string;
   review: string;
   rating: number;
+}
+
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  name: {
+    firstname: string;
+    lastname: string;
+  };
+  address: {
+    city: string;
+    street: string;
+    number: number;
+    zipcode: string;
+    geolocation: {
+      lat: string;
+      long: string;
+    };
+  };
+  phone: string;
 }
