@@ -10,6 +10,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getProduct } from "@/lib/data";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<Product>();
@@ -18,10 +19,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(
-          `https://fakestoreapi.com/products/${params?.id}`
-        );
-        const data: Product = await response.json();
+        const data = await getProduct(params?.id);
         setProduct(data);
 
         setIsLoading(false);
@@ -47,7 +45,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   const isInCart = cart.some((item) => item.id === product?.id);
   return (
-    <>
+    <div className="container">
       <Navbar />
       <section className="py-12">
         <Link
@@ -74,6 +72,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             />
             <div className="space-y-4">
               <h3 className="font-semibold text-2xl">{product?.title}</h3>
+              <p className="text-sm text-gray-600">{product?.description}</p>
               <p className="text-sm text-gray-600">{product?.category}</p>
               <p className="font-bold text-4xl mt-2">
                 Ksh {product?.price.toFixed(2)}
@@ -100,6 +99,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         )
       )}
       <Footer />
-    </>
+    </div>
   );
 }
