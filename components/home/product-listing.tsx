@@ -13,6 +13,7 @@ import {
 import { Grid, List, SlidersHorizontal } from "lucide-react";
 import { Product } from "@/lib/interfaces";
 import { ProductCard } from "@/components/common/product-card";
+import { getProducts } from "@/lib/data";
 
 export const ProductListing = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -25,14 +26,14 @@ export const ProductListing = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        const data: Product[] = await response.json();
+        const data = await getProducts();
+        console.log(data);
         setProducts(data);
 
-        // Extract unique categories
+        // Extract product categories
         const uniqueCategories = Array.from(
           new Set(data.map((product: Product) => product.category))
-        );
+        ) as string[];
         setCategories(uniqueCategories);
 
         setIsLoading(false);
@@ -46,7 +47,7 @@ export const ProductListing = () => {
   }, []);
 
   const filteredAndSortedProducts = products
-    .filter(
+    ?.filter(
       (product) =>
         filterCategory === "all" || product.category === filterCategory
     )
@@ -129,7 +130,7 @@ export const ProductListing = () => {
             <p>No Products</p>
           ) : (
             <>
-              {filteredAndSortedProducts.map((product) => (
+              {filteredAndSortedProducts?.map((product) => (
                 <ProductCard
                   key={product?.id}
                   product={product}

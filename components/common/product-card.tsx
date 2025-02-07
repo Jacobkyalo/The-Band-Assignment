@@ -55,7 +55,7 @@ export const ProductCard = ({
 
         {isInCart ? (
           <Button
-            className="mt-2 w-full"
+            className={viewMode === "list" ? "w-fit" : "mt-4 w-full"}
             onClick={() => removeFromCart(product?.id)}
             variant="destructive"
           >
@@ -63,7 +63,7 @@ export const ProductCard = ({
           </Button>
         ) : (
           <Button
-            className="mt-2 w-full"
+            className={viewMode === "list" ? "w-fit" : "mt-4 w-full"}
             onClick={handleAddToCart}
             disabled={isInCart}
           >
